@@ -19,7 +19,7 @@ IOPS = 'iops'
 IO_TRANSFER = 'io_transfer'
 PERCENT_UTIL = '%util'
 AVGRQ_SZ = 'avgrq-sz'
-AVGQU_SZ = 'avgqu-sz'
+AVGQU_SZ = 'aqu-sz'
 AWAIT = 'await'
 SVCTM = 'svctm'
 

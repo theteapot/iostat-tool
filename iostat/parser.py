@@ -5,9 +5,9 @@ from datetime import datetime
 from .filters import get_filters
 from .utils import get_logger
 
-IOSTAT_DATE_FORMAT = '%m/%d/%Y %I:%M:%S %p'
+IOSTAT_DATE_FORMAT = '%m/%d/%y %H:%M:%S'
 IOSTAT_DATE = re.compile(r"""
-(?P<date>^\d{2}/\d{2}/\d{4}\s*\d{2}:\d{2}:\d{2}\s*(AM|PM))
+(?P<date>^\d{2}/\d{2}/\d{2}\s*\d{2}:\d{2}:\d{2})
 """, re.VERBOSE)
 
 log = get_logger()
@@ -49,7 +49,8 @@ class Parser:
         self.device_stat['stats'].append(stat)
 
     def parse_columns(self, d, line):
-        d['columns'] = line[line.find(':') + 1:].strip().split()
+        d['columns'] = line[line.find(
+            'Device') + len('Device'):].strip().split()
 
     def _parse(self, line):
         if line == '\n':
@@ -74,7 +75,7 @@ class Parser:
                 if line.startswith('avg-cpu:'):
                     self.parse_columns(self.cpu_stat, line)
                     self.state = self.CPU
-                elif line.startswith('Device:'):
+                elif line.startswith('Device'):
                     self.parse_columns(self.device_stat, line)
                     self.state = self.DEVICE
                 else:

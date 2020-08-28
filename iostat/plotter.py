@@ -102,6 +102,7 @@ class Plotter(Renderer):
         data = defaultdict(list)
         for stat in self.stats:
             cpu = stat['cpu']
+            cpu['columns'] = cpu['columns'][1:]
             for i, column in enumerate(cpu['columns']):
                 data[column].append(cpu['stat'][i])
 
@@ -141,7 +142,7 @@ class Plotter(Renderer):
                     elif name == AVGRQ_SZ:
                         columns = ['avgrq-sz']
                     elif name == AVGQU_SZ:
-                        columns = ['avgqu-sz']
+                        columns = ['aqu-sz']
                     elif name == AWAIT:
                         columns = ['await', 'r_await', 'w_await']
                     elif name == SVCTM:
